@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{  asset('assets/css/main.css') }}" />
   </head>
+  <iframe style="width: 480px; height: 360px; margin: 0 auto; display: block" src="{{ $material->video }}"></iframe>
   <body>
-    <iframe style="width: 480px; height: 360px; margin: 0 auto; display: block" src="{{ $material->video }}"></iframe>
     <!-- Header -->
       <header id="header" class="preview">
         <div class="inner">
