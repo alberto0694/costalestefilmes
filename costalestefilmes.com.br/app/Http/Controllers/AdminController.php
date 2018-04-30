@@ -15,6 +15,18 @@ class AdminController extends Controller
     public function index()
     {
     	$materiais = Material::all();
-    	return view('admin', compact('materiais'));
+    	return view('admin.index', compact('materiais'));
     }
+
+    public function novo()
+    {
+      return view('admin.novo');
+    }
+
+    public function editar(Request $request, $id)
+    {
+      $material = Material::find($id);
+      return view('admin.editar', compact('material'));
+    }
+
 }

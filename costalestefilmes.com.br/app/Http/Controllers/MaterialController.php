@@ -7,79 +7,48 @@ use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function create(Request $request)
     {
-        //
+        $vimeo = $request->link;
+        if(preg_match("/(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/", $vimeo, $output_array)) {
+            $request->link = $output_array[5];
+        }
+
+        if($request->hasFile('imagem')){
+            $path = $request->imagem->store('public/images');
+            Material::create([
+               'titulo'  => $request->titulo,
+               'video'  => 'https://player.vimeo.com/video/'.$request->link,
+               'texto'  => $request->texto,
+               'imagem'  => $path
+            ]);
+        }
+        return (redirect(route('admin.index')));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function update(Request $request, $id)
     {
-        //
+        $material = Material::find($id);
+        if($request->hasFile('imagem')){
+            $path = $request->imagem->store('public/storage/images');
+            $material->imagem = $path;
+        }
+        $vimeo = $request->link;
+        if(preg_match("/(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/", $vimeo, $output_array)) {
+            $request->link = $output_array[5];
+        }
+        $material->titulo = $request->titulo;
+        $material->video  = 'https://player.vimeo.com/video/'.$request->link;
+        $material->texto  = $request->texto;
+        $material->save();
+        return (redirect(route('admin.index')));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function delete(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Material  $material
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Material $material)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Material  $material
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Material $material)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Material  $material
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Material $material)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Material  $material
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Material $material)
-    {
-        //
+        $material = Material::find($id);
+        $material->delete();
+        return (redirect(route('admin.index')));
     }
 }

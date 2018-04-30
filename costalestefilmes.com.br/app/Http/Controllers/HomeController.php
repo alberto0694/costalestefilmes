@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Material;
 
 class HomeController extends Controller
 {
@@ -18,6 +19,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('index');
+        $materiais = Material::all();
+        return view('site.index', compact('materiais'));
+    }
+
+    public function detail(Request $request, $id)
+    {
+        $material = Material::find($id);
+        return view('site.detail', compact('material'));
     }
 }
