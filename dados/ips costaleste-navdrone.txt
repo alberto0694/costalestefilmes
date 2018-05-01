@@ -1,0 +1,9 @@
+ip: 108.179.192.66
+
+cpanel/ssh
+Usuário: navdr123
+Senha: FGnRaaWmxiN8
+
+porta ssh: 2222
+porta ftp: 21
+senha ftp: licococo734

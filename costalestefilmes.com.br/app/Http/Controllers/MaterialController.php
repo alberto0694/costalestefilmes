@@ -17,6 +17,7 @@ class MaterialController extends Controller
 
         if($request->hasFile('imagem')){
             $path = $request->imagem->store('public/images');
+            $path = $bodytag = str_replace("public/", "storage/",$path);
             Material::create([
                'titulo'  => $request->titulo,
                'video'  => 'https://player.vimeo.com/video/'.$request->link,
@@ -31,7 +32,8 @@ class MaterialController extends Controller
     {
         $material = Material::find($id);
         if($request->hasFile('imagem')){
-            $path = $request->imagem->store('public/storage/images');
+            $path = $request->imagem->store('public/images');
+            $path = $bodytag = str_replace("public/", "storage/",$path);
             $material->imagem = $path;
         }
         $vimeo = $request->link;

@@ -24,7 +24,7 @@
                         <div class="col-sm-10">
                           <label>Informe a imagem do material</label>
                           <input type="file" class="form-control" id="imagem" placeholder="Informe o imagem" name="imagem">
-                          <img src="{{ Storage::url($material->imagem) }}">
+                          <img src="{{ asset($material->imagem) }}">
                         </div>
                       </div>
                       <div class="form-group">

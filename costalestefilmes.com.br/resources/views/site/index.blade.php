@@ -7,7 +7,7 @@
       @foreach($materiais as $material)
         <div class="image fit">
           <a href="{{ route('site.detail', $material->id) }}" target="_blank">
-            <img src="{{ Storage::url($material->imagem) }}" alt="" />
+            <img src="{{ asset($material->imagem) }}" alt="" />
           </a>
         </div>
       @endforeach
